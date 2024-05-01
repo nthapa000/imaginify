@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Sans } from "next/font/google";
 import { cn } from "@/lib/utils";
+import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 
-const IBMPlex = IBM_Plex_Sans({ 
+const IBMPlex = IBM_Plex_Sans({
   subsets: ["latin"],
-  weight: ['400','500','600','700'],
-  variable: '--font-ibm-plex'
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-ibm-plex",
   // will turn on the font
 });
 
@@ -21,11 +22,30 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={cn("font-IBMPlex antialiased",IBMPlex.variable)}>
-        {children}
-      </body>   
-    </html>
+    <ClerkProvider
+    appearance={{
+      variables:{colorPrimary:'#624cf5'}
+    }}
+    // appearance={{
+    //   layout:{
+    //     logoImageUrl:'/logo.png',
+    //     socialButtonsVariant:'iconButton'
+    //   },
+    //   variables:{
+    //     colorText:"#fff",
+    //     colorPrimary:"#0E78F9",
+    //     colorBackground:"#1c1f2e",
+    //     colorInputBackground:"#252a41",
+    //     colorInputText:"#fff"
+    //   }
+    // }}
+    >
+      <html lang="en">
+        <body className={cn("font-IBMPlex antialiased", IBMPlex.variable)}>
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
 
